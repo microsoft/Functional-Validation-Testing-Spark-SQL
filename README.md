@@ -42,16 +42,16 @@ Consists of following inputs:
 * Logic Apps - For Notification Mechanism - Optional
 * Azure Data Factory - For Orchestration - Optional
 
-## Steps to Use
-Step 1: Identify Scenarios for Functional and Comparative Testing.
-Step 2: Create Test Queries for each of the test scenario.
-Step 3: Create json for Functional and Comparative Test Cases based on the sample.
-Step 4: Deploy the json to the databricks workspace at "/Metadata/ExternalTable/" or any other location in dbfs
-Step 5: Create test cases tables based on "/Functional-Validation-Testing-Spark-SQL/Test Cases Table Creation Scripts/" SQL Scripts
-Step 6: Create test results tables based on "Functional-Validation-Testing-Spark-SQL/Results Table Creation Scripts/" SQL Scripts
-Step 7: Deploy the FunctionalValidationTestingSparkSQL.scala in your databricks workspace.
-Step 8(Optional) : Create an ADF Pipeline to schedule the orchestration of FunctionalValidationTestingSparkSQL.scala notebook.
-Step 9(Optional): Create a Logic Apps to trigger the Email/Teams notification based on the html output from FunctionalValidationTestingSparkSQL.scala
+## Steps to Use the Framework
+* Step 1: Identify Scenarios for Functional and Comparative Testing.
+* Step 2: Create Test Queries for each of the test scenario.
+* Step 3: Create json for Functional and Comparative Test Cases based on the sample.
+* Step 4: Deploy the json to the databricks workspace at "/Metadata/ExternalTable/" or any other location in dbfs
+* Step 5: Create test cases tables based on "/Functional-Validation-Testing-Spark-SQL/Test Cases Table Creation Scripts/" SQL Scripts
+* Step 6: Create test results tables based on "Functional-Validation-Testing-Spark-SQL/Results Table Creation Scripts/" SQL Scripts
+* Step 7: Deploy the FunctionalValidationTestingSparkSQL.scala in your databricks workspace.
+* Step 8(Optional) : Create an ADF Pipeline to schedule the orchestration of FunctionalValidationTestingSparkSQL.scala notebook.
+* Step 9(Optional): Create a Logic Apps to trigger the Email/Teams notification based on the html output from FunctionalValidationTestingSparkSQL.scala
 
 ## Contributing
 
