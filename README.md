@@ -53,6 +53,7 @@ Consists of following inputs:
 * Step 8(Optional) : Create an ADF Pipeline to schedule the orchestration of FunctionalValidationTestingSparkSQL.scala notebook.
 * Step 9(Optional): Create a Logic Apps to trigger the Email/Teams notification based on the html output from FunctionalValidationTestingSparkSQL.scala
 
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
