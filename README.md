@@ -14,6 +14,7 @@ The framework tries to classify the test cases into two types:
 * Functional Test Cases : Negative testing or testing against a known output.
 * Comparitive Test Cases : Writing test cases for each layer(source and destination) and comparing the outputs.
 
+Functional Test Cases: Refer to the 
 
 
 ## Contributing
