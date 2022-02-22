@@ -50,12 +50,12 @@ def insertcomparativetestresult(TestId:String ,Domain:String ,TestName:String ,S
       val passresult = s"select TestId,Domain,TestName,SourceLayer,DestinationLayer, "+
       s"'${Difference}' as Difference "+
       s",'${Status}' as Status,0 as FailedCounter "+
-      "from computestore.ComparativeTestCases where "+
+      "from SUBJECT_AREA_DB.ComparativeTestCases where "+
       "lower(TestId) = lower("+ s"'${TestId}') and "+
       "lower(TestName) = lower("+ s"'${TestName}') and lower(Domain) = lower("+ s"'${Domain}') "
       val passresult_spark = spark.sql(passresult)
       passresult_spark.createOrReplaceTempView("passresults_vw")
-      val result = s"MERGE into o2cFacts.ComparativeTestResults AS Tgt "+
+      val result = s"MERGE into SUBJECT_AREA_DB.ComparativeTestResults AS Tgt "+
         	"USING passresults_vw AS Src "+
         	"ON COALESCE(Tgt.TestId,'') = COALESCE(Src.TestID,'') "+
             "AND COALESCE(Tgt.TestName,'') = COALESCE(Src.TestName,'') "+
@@ -98,13 +98,13 @@ def insertcomparativetestresult(TestId:String ,Domain:String ,TestName:String ,S
       s"'${Difference}' as Difference "+
       s",'${Status}' as Status "+
       " ,CASE WHEN B.FailedCounter>0 THEN B.FailedCounter +1 ELSE 1 END as FailedCounter "+
-      "from computestore.ComparativeTestCases A "+
-      "left join o2cFacts.ComparativeTestResults B on lower(A.TestID) = lower(B.TestId) "+
+      "from SUBJECT_AREA_DB.ComparativeTestCases A "+
+      "left join SUBJECT_AREA_DB.ComparativeTestResults B on lower(A.TestID) = lower(B.TestId) "+
       "and lower(A.TestName) = lower(B.TestName) and lower(A.domain) = lower(B.domain) "+
       "where lower(A.Domain) = lower("+ s"'${Domain}')  and lower(A.TestId) = lower("+ s"'${TestId}') and lower(A.TestName) = lower("+ s"'${TestName}') "
       val failresult_spark = spark.sql(failresult)
       failresult_spark.createOrReplaceTempView("failresults_vw")
-      val result = s"MERGE into o2cFacts.ComparativeTestResults AS Tgt "+
+      val result = s"MERGE into SUBJECT_AREA_DB.ComparativeTestResults AS Tgt "+
         	"USING failresults_vw AS Src "+
         	"ON COALESCE(Tgt.TestId,'') = COALESCE(Src.TestID,'') "+
             "AND COALESCE(Tgt.TestName,'') = COALESCE(Src.TestName,'') "+
@@ -166,12 +166,12 @@ def insertfunctionaltestresult(TestId:String ,Domain:String ,TestName:String ,Ex
       val passresult = s"select TestId,Domain,TestName,TestQuery,ExpectedResult, "+
       s"'${ActualResult}' as ActualResult "+
       s",'${Status}' as Status,0 as FailedCounter "+
-      "from computestore.FunctionalTestCases where "+
+      "from SUBJECT_AREA_DB.FunctionalTestCases where "+
       "lower(TestId) = lower("+ s"'${TestId}') and "+
       "lower(TestName) = lower("+ s"'${TestName}') and lower(Domain) = lower("+ s"'${Domain}') "
       val passresult_spark = spark.sql(passresult)
       passresult_spark.createOrReplaceTempView("passresults_vw")
-      val result = s"MERGE into o2cFacts.FunctionalTestResults AS Tgt "+
+      val result = s"MERGE into SUBJECT_AREA_DB.FunctionalTestResults AS Tgt "+
         	"USING passresults_vw AS Src "+
         	"ON COALESCE(Tgt.TestId,'') = COALESCE(Src.TestID,'') "+
             "AND COALESCE(Tgt.TestName,'') = COALESCE(Src.TestName,'') "+
@@ -212,13 +212,13 @@ def insertfunctionaltestresult(TestId:String ,Domain:String ,TestName:String ,Ex
       s"'${ActualResult}' as ActualResult "+
       s",'${Status}' as Status "+
       " ,CASE WHEN B.FailedCounter>0 THEN B.FailedCounter +1 ELSE 1 END as FailedCounter "+
-      "from computestore.FunctionalTestCases A "+
-      "left join o2cFacts.FunctionalTestResults B on lower(A.TestID) = lower(B.TestId) "+
+      "from SUBJECT_AREA_DB.FunctionalTestCases A "+
+      "left join SUBJECT_AREA_DB.FunctionalTestResults B on lower(A.TestID) = lower(B.TestId) "+
       "and lower(A.TestName) = lower(B.TestName) and lower(A.domain) = lower(B.domain) "+
       "where lower(A.Domain) = lower("+ s"'${Domain}')  and lower(A.TestId) = lower("+ s"'${TestId}') and lower(A.TestName) = lower("+ s"'${TestName}') "
       val failresult_spark = spark.sql(failresult)
       failresult_spark.createOrReplaceTempView("failresults_vw")
-      val result = s"MERGE into o2cFacts.FunctionalTestResults AS Tgt "+
+      val result = s"MERGE into SUBJECT_AREA_DB.FunctionalTestResults AS Tgt "+
         	"USING failresults_vw AS Src "+
         	"ON COALESCE(Tgt.TestId,'') = COALESCE(Src.TestID,'') "+
             "AND COALESCE(Tgt.TestName,'') = COALESCE(Src.TestName,'') "+
@@ -323,12 +323,8 @@ import scala.util.control.Breaks._
 //get the widget text for area
 dbutils.widgets.text("domain", "dv")
 val domain = dbutils.widgets.get("domain")
-//truncate the results table
-//val TruncateFuncationalTestCases = """ TRUNCATE TABLE o2cFacts.FunctionalTestResults """
-//spark.sql(TruncateFuncationalTestCases)
-//println("Truncation Table Succeeded")
 //get the test cases from the config table
-val BVTTestCases = s"select TestId,Domain,TestName,TestQuery,ExpectedResult,FilePath from computestore.FunctionalTestCases where lower(Domain) = lower("+ s"'${domain}') and IsActive = '1' "
+val BVTTestCases = s"select TestId,Domain,TestName,TestQuery,ExpectedResult,FilePath from SUBJECT_AREA_DB.FunctionalTestCases where lower(Domain) = lower("+ s"'${domain}') and IsActive = '1' "
 val BVTTestCases_Finalquery = spark.sql(BVTTestCases)
 println("Config Table Read Succeeded")
 var filelist = ListBuffer[String]()
@@ -425,12 +421,8 @@ breakable {
 // DBTITLE 1,Comparative Test Cases
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks._
-//dbutils.widgets.text("domain", "dv")
 val domain = dbutils.widgets.get("domain")
-//val TruncateComparativeTestCases = """ TRUNCATE TABLE o2cFacts.ComparativeTestResults """
-//spark.sql(TruncateComparativeTestCases)
-//println("Truncation Table Succeeded")
-val ComparativeTestCases = s"select TestID,Domain,TestName,SourceLayer,SourceQuery,DestinationLayer,DestinationQuery from computestore.ComparativeTestCases where lower(Domain) = lower("+ s"'${domain}') and IsActive = '1' "
+val ComparativeTestCases = s"select TestID,Domain,TestName,SourceLayer,SourceQuery,DestinationLayer,DestinationQuery from SUBJECT_AREA_DB.ComparativeTestCases where lower(Domain) = lower("+ s"'${domain}') and IsActive = '1' "
 val ComparitiveTestCases_Finalquery = spark.sql(ComparativeTestCases)
 println("Config Table Read Succeeded")
 var filelist = ListBuffer[String]()
@@ -564,8 +556,8 @@ val FunctionalTests = """ SELECT A.TestId, A.Domain, A.TestName, A.ExpectedResul
   WHEN FailedCounter = 3 THEN 'High' 
   WHEN FailedCounter > 3 THEN 'Critical' 
   ELSE 'Low' END as Severity
-FROM o2cFacts.FunctionalTestResults A
-JOIN computestore.FunctionalTestCases B ON A.TestId = B.TestID and A.TestName = B.TestName
+FROM SUBJECT_AREA_DB.FunctionalTestResults A
+JOIN SUBJECT_AREA_DB.FunctionalTestCases B ON A.TestId = B.TestID and A.TestName = B.TestName
 WHERE lower(Status) <> 'passed' and IsActive = '1'
 ORDER BY FailedCounter DESC """
 val FT = spark.sql(FunctionalTests)
@@ -576,8 +568,8 @@ val ComparativeTests = """ SELECT A.TestId, A.Domain, A.TestName, A.SourceLayer,
   WHEN FailedCounter = 3 THEN 'High' 
   WHEN FailedCounter > 3 THEN 'Critical' 
   ELSE 'Low' END as Severity
-FROM o2cFacts.ComparativeTestResults A
-JOIN computestore.ComparativeTestCases B ON A.TestId = B.TestID and A.TestName = B.TestName
+FROM SUBJECT_AREA_DB.ComparativeTestResults A
+JOIN SUBJECT_AREA_DB.ComparativeTestCases B ON A.TestId = B.TestID and A.TestName = B.TestName
 WHERE lower(Status) <> 'passed' and IsActive = '1'
 ORDER BY FailedCounter DESC """
 val CT = spark.sql(ComparativeTests)
