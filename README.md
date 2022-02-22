@@ -36,7 +36,11 @@ Consists of following inputs:
 * Destination Layer - User Friendly Layer of Destination Layer. Can be a File Path to run against CSV/TSV
 * Destination Query - Test Query for Destination Layer
 
-
+## Pre-requisites to Use the Framework
+* Databricks
+* Cluster with following specifications: Scala 2.11 or higher, Spark 2.4.3 or higher and Environment Variable: PYSPARK_PYTHON=/databricks/python3/bin/python3 
+* Logic Apps - For Notification Mechanism - Optional
+* Azure Data Factory - For Orchestration - Optional
 
 ## Contributing
 
