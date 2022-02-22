@@ -25,7 +25,16 @@ Consists of following inputs:
 * FilePath - File path if provided allows all CSV/TSV files to be read up from the mounted lake location and a dataframe created for them for comparision. This will allow the test query to instead run on the dataframe instead of delta table.
 * IsActive - In some cases, the test case could become obsolete. This flag can allow to report only active test cases.
 
-
+### Comparative Test Cases:
+Refer to the (/Functional-Validation-Testing-Spark-SQL/Test Cases Scripts/ComparativeTestCases.json)
+Consists of following inputs:
+* TestID - ID of a test case. Can be based on user preference.
+* Domain - Domain of a test cases. User can classify the test cases based on domains it serve to report domain wise test case coverage easily.
+* TestName - User Friendly Description of the Test Case.
+* Source Layer - User Friendly Layer of Source Layer. Can be a File Path to run against CSV/TSV
+* Source Query - Test Query for Source Layer
+* Destination Layer - User Friendly Layer of Destination Layer. Can be a File Path to run against CSV/TSV
+* Destination Query - Test Query for Destination Layer
 
 
 
