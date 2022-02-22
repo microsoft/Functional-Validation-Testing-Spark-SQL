@@ -1,14 +1,20 @@
-# Project
+# Functional Validation Testing Framework in Spark SQL
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+## Scenario: 
+You are working on a data engineering project. You have built the system by applying functional(business/quality) rules and want to ensure, that if a business rule is not confirmed, you would like to report the discrepancy.
 
-As the maintainer of this project, please make a few updates:
+The discrepancies could include but not restricted to:
+* Source layer and Target layer are not in sync
+* Key Columns in a table are empty
+* Data Quality issues with a table e.g. duplicates on primary columns causing merge issues etc.
+* Business Rules Validation Scenarios e.g. Amount should not be 0 for a region, Key metrics should not vary between months by a threshold etc.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## How Functional Validation Testing Framework in Spark SQL helps you?
+The framework tries to classify the test cases into two types:
+* Functional Test Cases : Negative testing or testing against a known output.
+* Comparitive Test Cases : Writing test cases for each layer(source and destination) and comparing the outputs.
+
+
 
 ## Contributing
 
