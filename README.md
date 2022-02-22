@@ -14,7 +14,19 @@ The framework tries to classify the test cases into two types:
 * Functional Test Cases : Negative testing or testing against a known output.
 * Comparitive Test Cases : Writing test cases for each layer(source and destination) and comparing the outputs.
 
-Functional Test Cases: Refer to the 
+### Functional Test Cases: 
+Refer to the (/Functional-Validation-Testing-Spark-SQL/Test Cases Scripts/FunctionalTestCases.json)
+Consists of following inputs:
+* TestID - ID of a test case. Can be based on user preference.
+* Domain - Domain of a test cases. User can classify the test cases based on domains it serve to report domain wise test case coverage easily.
+* TestName - User Friendly Description of the Test Case.
+* TestQuery - Test Query based on the functional Test cases in Spark SQL.
+* ExpectedResult - Expected Value of the functional Test case to classify it as passed.
+* FilePath - File path if provided allows all CSV/TSV files to be read up from the mounted lake location and a dataframe created for them for comparision. This will allow the test query to instead run on the dataframe instead of delta table.
+* IsActive - In some cases, the test case could become obsolete. This flag can allow to report only active test cases.
+
+
+
 
 
 ## Contributing
