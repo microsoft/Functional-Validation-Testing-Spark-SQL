@@ -1,0 +1,3 @@
+{"TestID": "TestCase1","Domain" :  "Domain 1","TestName": "Merge Issues:Duplication on Primary Keys check for Fact","TestQuery": "SELECT Column1,COUNT(*) FROM Schema.Table GROUP BY Column1 HAVING COUNT(*) > 1","ExpectedResult": "null","FilePath":"null","IsActive":"1"}
+{"TestID": "TestCase2","Domain" :  "Domain 1","TestName": "Values Exceeding threshold","TestQuery": "SELECT * FROM Schema.Table where Column1 > 1000","ExpectedResult": "null","FilePath":"null","IsActive":"1"}
+{"TestID": "TestCase3","Domain" :  "Domain 1","TestName": "Values Exceeding threshold from file","TestQuery": "SELECT * FROM Schema.Table where Column1 > 1000","ExpectedResult": "null","FilePath":"Temp/folderPath/","IsActive":"1"}
